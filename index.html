@@ -5,31 +5,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>English Shadower</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#1e293b}.container{max-width:800px;margin:0 auto;padding:16px}.header{padding:16px;background:#f8fafc;border-bottom:1px solid #e2e8f0;margin-bottom:16px;border-radius:8px}.header h1{font-size:24px;margin-bottom:8px}.mode-selector{display:flex;gap:8px;margin-bottom:16px}button{padding:10px 16px;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s}.mode-btn{flex:1;background:#e2e8f0;color:#475569}.mode-btn.active{background:#0ea5e9;color:#fff}.theme-box{background:#f1f5f9;padding:16px;border-radius:8px;margin-bottom:16px}.theme-title{font-size:20px;font-weight:600;margin-bottom:4px}.theme-category{font-size:12px;opacity:.6;margin-bottom:12px}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.control-btn{background:#0ea5e9;color:#fff;padding:10px 12px;font-size:13px;cursor:pointer}.control-btn:active{background:#0284c7}.control-btn.secondary{background:#64748b}.content-box{background:#f8fafc;padding:16px;border-radius:8px;margin-bottom:16px;line-height:1.6}.content-label{font-size:12px;font-weight:600;opacity:.6;margin-bottom:8px}.theme-selector{margin-bottom:16px}.theme-selector label{display:block;font-size:12px;font-weight:600;margin-bottom:8px}select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:6px;font-size:14px}.speed-control{display:flex;align-items:center;gap:8px}.speed-control input{width:60px;padding:6px;border:1px solid #cbd5e1;border-radius:4px}.tip-box{padding:12px;border-radius:8px;margin-bottom:16px;font-size:13px}.tip-box.shadowing{background:#dbeafe;color:#0c4a6e}.tip-box.listening{background:#dcfce7;color:#164e2c}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#1e293b}.container{max-width:800px;margin:0 auto;padding:16px}.header{padding:16px;background:#f8fafc;border-bottom:1px solid #e2e8f0;margin-bottom:16px;border-radius:8px}.header h1{font-size:24px;margin-bottom:8px}.mode-selector{display:flex;gap:8px;margin-bottom:16px}button{padding:10px 16px;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s}.mode-btn{flex:1;background:#e2e8f0;color:#475569}.mode-btn.active{background:#0ea5e9;color:#fff}.theme-box{background:#f1f5f9;padding:16px;border-radius:8px;margin-bottom:16px}.theme-title{font-size:16px;font-weight:600;margin-bottom:12px;color:#64748b}.english-text{font-size:18px;line-height:1.8;font-weight:500;margin-bottom:12px}.japanese-text{font-size:16px;line-height:1.7;color:#475569}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.control-btn{background:#0ea5e9;color:#fff;padding:10px 12px;font-size:13px;cursor:pointer;border-radius:6px}.control-btn:active{background:#0284c7}.control-btn.secondary{background:#64748b}.control-btn.heart{background:#ec4899;font-size:16px;padding:8px 12px}.control-btn.heart.saved{background:#be185d}.content-box{background:#f8fafc;padding:16px;border-radius:8px;margin-bottom:16px;line-height:1.6;display:none}.content-box.active{display:block}.content-label{font-size:12px;font-weight:600;opacity:.6;margin-bottom:8px}.speed-control{display:flex;align-items:center;gap:8px}.speed-control input{width:60px;padding:6px;border:1px solid #cbd5e1;border-radius:4px}.tip-box{padding:12px;border-radius:8px;margin-bottom:16px;font-size:13px}.tip-box.shadowing{background:#dbeafe;color:#0c4a6e}.tip-box.listening{background:#dcfce7;color:#164e2c}.favorites-section{margin-top:24px;padding-top:24px;border-top:2px solid #e2e8f0}.favorites-title{font-size:18px;font-weight:600;margin-bottom:12px}.favorites-list{display:flex;flex-direction:column;gap:8px}.favorite-item{background:#f1f5f9;padding:12px;border-radius:6px;position:relative;padding-right:40px}.favorite-item .en{font-size:14px;font-weight:500;margin-bottom:4px}.favorite-item .jp{font-size:12px;opacity:.7}.favorite-btn{position:absolute;right:8px;top:8px;background:none;border:none;cursor:pointer;font-size:16px}.favorite-count{font-size:12px;color:#64748b;margin-bottom:8px}
 </style>
 </head>
 <body>
 <div class="container">
-<div class="header"><h1>🎙️ English Shadower</h1><p style="font-size:13px;opacity:.7">Master English through shadowing & listening</p></div>
+<div class="header"><h1>🎙️ English Shadower</h1><p style="font-size:13px;opacity:.7">Dynamic English learning for agricultural business</p></div>
 <div class="mode-selector"><button class="mode-btn active" id="shadowBtn" onclick="setMode('shadowing')">🎙️ Shadowing</button><button class="mode-btn" id="listenBtn" onclick="setMode('listening')">👂 Listening</button></div>
-<div class="theme-selector"><label>Select Theme:</label><select onchange="changeTheme(this.value)"><option value="0">Sales Meeting Opening</option><option value="1">Product Benefits</option><option value="2">Addressing Customer Concerns</option><option value="3">Technical Details</option><option value="4">Meeting Closing</option></select></div>
-<div class="theme-box" id="themeBox"><div class="theme-title" id="themeTitle">Sales Meeting Opening</div><div class="theme-category" id="themeCategory">Business</div></div>
-<div class="tip-box shadowing" id="tipBox">💡 Tip: Play the audio and try to speak at the same time. Focus on pronunciation and rhythm.</div>
-<div class="controls"><button class="control-btn" onclick="playAudio()">▶️ Play</button><button class="control-btn secondary" onclick="stopAudio()">⏹️ Stop</button><div class="speed-control"><label>Speed:</label><input type="number" id="speedInput" value="1" min="0.5" max="2" step="0.25"></div><button class="control-btn" id="scriptBtn" onclick="toggleScript()">👁️ Show Script</button><button class="control-btn" id="jpBtn" onclick="toggleTranslation()">🇯🇵 Show JP</button></div>
-<div class="content-box" id="scriptBox"><div class="content-label">English</div><div class="content-text" id="englishText"></div></div>
-<div class="content-box" id="translationBox" style="display:none"><div class="content-label">日本語</div><div class="content-text" id="japaneseText"></div></div>
+<div class="tip-box shadowing" id="tipBox">💡 Tip: Play the audio and try to speak at the same time.</div>
+<div class="theme-box" id="themeBox">
+  <div class="theme-title">Agricultural Business English</div>
+  <div class="english-text" id="englishText">Click "Generate" to create a new sentence.</div>
+  <div class="japanese-text" id="japaneseText" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid #cbd5e1"></div>
 </div>
+<div class="controls">
+  <button class="control-btn" onclick="generateSentence()">✨ Generate</button>
+  <button class="control-btn" onclick="playAudio()">▶️ Play</button>
+  <button class="control-btn secondary" onclick="stopAudio()">⏹️ Stop</button>
+  <div class="speed-control">
+    <label>Speed:</label>
+    <input type="number" id="speedInput" value="1" min="0.5" max="2" step="0.25">
+  </div>
+  <button class="control-btn" id="jpBtn" onclick="toggleTranslation()">🇯🇵 Show JP</button>
+  <button class="control-btn heart" id="heartBtn" onclick="toggleFavorite()">❤️</button>
+</div>
+
+<div class="favorites-section" id="favoritesSection" style="display:none">
+  <div class="favorites-title">❤️ My Favorites</div>
+  <div class="favorite-count" id="favoriteCount">0 / 10</div>
+  <div class="favorites-list" id="favoritesList"></div>
+</div>
+</div>
+
 <script>
-const themes=[{title:'Sales Meeting Opening',category:'Business',english:'Good morning, thank you for taking the time to meet with us today. I\'d like to introduce our new seed treatment technology, Gepetto, which has been designed to significantly improve crop yields while reducing the environmental impact of agricultural production.',japanese:'おはようございます。本日はお時間をいただきありがとうございます。当社の新しい種子処理技術、ゲペットをご紹介したいと思います。これは農業生産の環境負荷を軽減しながら、作物の収量を大幅に向上させるために設計されています。'},{title:'Product Benefits',category:'Sales Pitch',english:'Gepetto offers several key advantages: improved germination rates, enhanced disease resistance, and optimized seed vigor. Our customers have reported yield increases of up to 20% in field trials.',japanese:'ゲペットは以下のような主な利点があります：発芽率の向上、病気への耐性向上、種子活力の最適化です。当社の顧客は試験圃場での収量増加を20%まで報告しています。'},{title:'Addressing Customer Concerns',category:'Customer Support',english:'I understand your concern about cost. While the initial investment is higher, the return on investment becomes apparent within the first season due to increased yields and reduced input requirements.',japanese:'コスト面でのご懸念はよく理解しています。初期投資は高いですが、収量の増加と投入量の削減により、最初のシーズンでは投資対効果が明らかになります。'},{title:'Technical Details',category:'Technical',english:'The active ingredients in Gepetto are derived from naturally occurring biological compounds. The formulation is compatible with existing application equipment and requires no modification to standard farming procedures.',japanese:'ゲペットの有効成分は自然発生的な生物化学物質から由来しています。処方は既存の施用機器と互換性があり、標準的な農業手順に変更は必要ありません。'},{title:'Meeting Closing',category:'Business',english:'Thank you for your attention and your thoughtful questions. We believe Gepetto is an excellent fit for your operation. Would you be interested in a small-scale trial on your property?',japanese:'ご清聴ありがとうございました。貴重なご質問をいただき感謝します。ゲペットはあなたの事業に最適だと確信しています。ご所有の土地での小規模試験にご関心がおありですか？'}];
-let currentMode='shadowing',currentThemeIndex=0,showScript=true,showTranslation=false,isPlaying=false;
-function setMode(m){currentMode=m;document.getElementById('shadowBtn').classList.toggle('active',m==='shadowing');document.getElementById('listenBtn').classList.toggle('active',m==='listening');const t=document.getElementById('tipBox');if(m==='shadowing'){t.className='tip-box shadowing';t.textContent='💡 Tip: Play the audio and try to speak at the same time. Focus on pronunciation and rhythm.';showScript=true;document.getElementById('scriptBox').style.display='block';document.getElementById('scriptBtn').textContent='👁️ Hide Script'}else{t.className='tip-box listening';t.textContent='💡 Tip: Hide the script and listen first. See how much you understand, then check the text.';showScript=false;document.getElementById('scriptBox').style.display='none';document.getElementById('scriptBtn').textContent='👁️ Show Script'}}
-function changeTheme(i){currentThemeIndex=parseInt(i);updateDisplay()}
-function updateDisplay(){const t=themes[currentThemeIndex];document.getElementById('themeTitle').textContent=t.title;document.getElementById('themeCategory').textContent=t.category;document.getElementById('englishText').textContent=t.english;document.getElementById('japaneseText').textContent=t.japanese}
-function playAudio(){if(!isPlaying&&'speechSynthesis'in window){const t=themes[currentThemeIndex],u=new SpeechSynthesisUtterance(t.english);u.rate=parseFloat(document.getElementById('speedInput').value);u.lang='en-US';isPlaying=true;u.onend=()=>{isPlaying=false};if(currentMode==='listening'){document.getElementById('scriptBox').style.display='none'}window.speechSynthesis.cancel();window.speechSynthesis.speak(u)}}
-function stopAudio(){window.speechSynthesis.cancel();isPlaying=false}
-function toggleScript(){showScript=!showScript;document.getElementById('scriptBox').style.display=showScript?'block':'none';document.getElementById('scriptBtn').textContent=showScript?'👁️ Hide Script':'👁️ Show Script'}
-function toggleTranslation(){showTranslation=!showTranslation;document.getElementById('translationBox').style.display=showTranslation?'block':'none';document.getElementById('jpBtn').textContent=showTranslation?'🇯🇵 Hide JP':'🇯🇵 Show JP'}
-updateDisplay();
-</script>
-</body>
-</html>
+const sentenceTemplates=[
+  {en:'We are committed to {action} {product} {location}.',jp:'{location}に{product}を{action}することに力を入れています。'},
+  {en:'{Company} has developed {product} to {benefit}.',jp:'{Company}は{benefit}するために{product}を開発しました。'},
+  {en:'Our latest {product} offers {number} key advantages: {advantage1}, {advantage2}, and {advantage3}.',jp:'当社の最新の{product}は3つの主な利点があります：{advantage1}、{advantage2}、そして{advantage3}。'},
+  {en:'The {product} is designed to {benefit} while {benefit2}.',jp:'{product}は{benefit}しながら{benefit2}するために設計されています。'},
+  {en:'We have successfully {action} {product} {location}.',jp:'当社は{location}で{product}を{action}することに成功しました。'},
+  {en:'This {product} is compatible with {compatibility} and requires {requirement}.',jp:'この{product}は{compatibility}と互換性があり、{requirement}は不要です。'},
+  {en:'Our customers have reported {improvement} in {metric}.',jp:'当社の顧客は{metric}で{improvement}を報告しています。'},
+  {en:'We believe {product} is an excellent fit for {location}.',jp:'{product}は{location}に最適だと確信しています。'},
+  {en:'Would you be interested in a trial of {product}?',jp:'{product}の試験にご関心がおありですか？'},
+  {en:'The implementation of {product} will {benefit}.',jp:'{product}の導入により{benefit}します。'}
+];
+
+const wordLists={
+  action:['improve','enhance','optimize','develop','implement','expand','strengthen','establish','launch','introduce'],
+  product:['seed treatment technology','crop protection system','irrigation solution','fertilizer formula','drone service','soil monitoring system','yield prediction software','pest management system','climate adaptation strategy','sustainability program'],
+  location:['the Japanese market','Asian markets','developing regions','the Southeast Asian region','domestic operations','overseas markets','emerging markets','key territories'],
+  Company:['Our company','Syngenta','We','The organization','Our team','The research division'],
+  benefit:['improve crop yields','enhance disease resistance','reduce environmental impact','increase efficiency','optimize seed vigor','reduce costs','strengthen sustainability','maximize profitability','ensure food security','promote sustainable agriculture'],
+  benefit2:['reducing environmental impact','minimizing costs','enhancing sustainability','improving outcomes','ensuring quality','maintaining compatibility'],
+  number:['several','multiple','three','many','numerous'],
+  advantage1:['improved germination rates','enhanced disease resistance','optimized seed vigor'],
+  advantage2:['reduced input requirements','lower cost of implementation','better environmental performance'],
+  advantage3:['increased profitability','improved yield consistency','stronger market competitiveness'],
+  compatibility:['existing equipment','standard farming procedures','current systems','conventional methods'],
+  requirement:['no
