@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>English Shadower</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#1e293b}.container{max-width:800px;margin:0 auto;padding:16px}.header{padding:16px;background:#f8fafc;border-bottom:1px solid #e2e8f0;margin-bottom:16px;border-radius:8px}.header h1{font-size:24px;margin-bottom:8px}.mode-selector{display:flex;gap:8px;margin-bottom:16px}button{padding:10px 16px;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s}.mode-btn{flex:1;background:#e2e8f0;color:#475569}.mode-btn.active{background:#0ea5e9;color:#fff}.theme-box{background:#f1f5f9;padding:16px;border-radius:8px;margin-bottom:16px}.theme-title{font-size:16px;font-weight:600;margin-bottom:12px;color:#64748b}.english-text{font-size:18px;line-height:1.8;font-weight:500;margin-bottom:12px}.japanese-text{font-size:16px;line-height:1.7;color:#475569}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.control-btn{background:#0ea5e9;color:#fff;padding:10px 12px;font-size:13px;cursor:pointer;border-radius:6px}.control-btn:active{background:#0284c7}.control-btn.secondary{background:#64748b}.control-btn.heart{background:#ec4899;font-size:16px;padding:8px 12px}.control-btn.heart.saved{background:#be185d}.content-box{background:#f8fafc;padding:16px;border-radius:8px;margin-bottom:16px;line-height:1.6;display:none}.content-box.active{display:block}.content-label{font-size:12px;font-weight:600;opacity:.6;margin-bottom:8px}.speed-control{display:flex;align-items:center;gap:8px}.speed-control input{width:60px;padding:6px;border:1px solid #cbd5e1;border-radius:4px}.tip-box{padding:12px;border-radius:8px;margin-bottom:16px;font-size:13px}.tip-box.shadowing{background:#dbeafe;color:#0c4a6e}.tip-box.listening{background:#dcfce7;color:#164e2c}.favorites-section{margin-top:24px;padding-top:24px;border-top:2px solid #e2e8f0}.favorites-title{font-size:18px;font-weight:600;margin-bottom:12px}.favorites-list{display:flex;flex-direction:column;gap:8px}.favorite-item{background:#f1f5f9;padding:12px;border-radius:6px;position:relative;padding-right:40px}.favorite-item .en{font-size:14px;font-weight:500;margin-bottom:4px}.favorite-item .jp{font-size:12px;opacity:.7}.favorite-btn{position:absolute;right:8px;top:8px;background:none;border:none;cursor:pointer;font-size:16px}.favorite-count{font-size:12px;color:#64748b;margin-bottom:8px}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#1e293b}.container{max-width:800px;margin:0 auto;padding:16px}.header{padding:16px;background:#f8fafc;border-bottom:1px solid #e2e8f0;margin-bottom:16px;border-radius:8px}.header h1{font-size:24px;margin-bottom:8px}.mode-selector{display:flex;gap:8px;margin-bottom:16px}button{padding:10px 16px;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s}.mode-btn{flex:1;background:#e2e8f0;color:#475569}.mode-btn.active{background:#0ea5e9;color:#fff}.theme-box{background:#f1f5f9;padding:16px;border-radius:8px;margin-bottom:16px}.theme-title{font-size:16px;font-weight:600;margin-bottom:12px;color:#64748b}.english-text{font-size:18px;line-height:1.8;font-weight:500;margin-bottom:12px}.japanese-text{font-size:16px;line-height:1.7;color:#475569}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.control-btn{background:#0ea5e9;color:#fff;padding:10px 12px;font-size:13px;cursor:pointer;border-radius:6px}.control-btn:active{background:#0284c7}.control-btn.secondary{background:#64748b}.control-btn.heart{background:#ec4899;font-size:16px;padding:8px 12px}.control-btn.heart.saved{background:#be185d}.speed-control{display:flex;align-items:center;gap:8px}.speed-control input{width:60px;padding:6px;border:1px solid #cbd5e1;border-radius:4px}.tip-box{padding:12px;border-radius:8px;margin-bottom:16px;font-size:13px}.tip-box.shadowing{background:#dbeafe;color:#0c4a6e}.tip-box.listening{background:#dcfce7;color:#164e2c}.favorites-section{margin-top:24px;padding-top:24px;border-top:2px solid #e2e8f0}.favorites-title{font-size:18px;font-weight:600;margin-bottom:12px}.favorites-list{display:flex;flex-direction:column;gap:8px}.favorite-item{background:#f1f5f9;padding:12px;border-radius:6px;position:relative;cursor:pointer;transition:all 0.2s}.favorite-item:hover{background:#e0e7ff;box-shadow:0 2px 8px rgba(14,165,233,0.1)}.favorite-item .en{font-size:14px;font-weight:500;margin-bottom:4px}.favorite-item .jp{font-size:12px;opacity:.7}.favorite-btn{position:absolute;right:8px;top:8px;background:none;border:none;cursor:pointer;font-size:16px;padding:4px 8px}.favorite-btn:hover{opacity:0.6}.favorite-count{font-size:12px;color:#64748b;margin-bottom:8px}.play-btn{background:#0ea5e9;color:#fff;border:none;border-radius:4px;padding:6px 10px;font-size:12px;cursor:pointer;margin-right:8px}
 </style>
 </head>
 <body>
@@ -39,33 +39,35 @@
 
 <script>
 const sentenceTemplates=[
-  {en:'We are committed to {action} {product} {location}.',jp:'{location}に{product}を{action}することに力を入れています。'},
+  {en:'We are committed to {action} {product} {location}.',jp:'{location}での{product}の{action}に力を入れています。'},
   {en:'{Company} has developed {product} to {benefit}.',jp:'{Company}は{benefit}するために{product}を開発しました。'},
-  {en:'Our latest {product} offers {number} key advantages: {advantage1}, {advantage2}, and {advantage3}.',jp:'当社の最新の{product}は3つの主な利点があります：{advantage1}、{advantage2}、そして{advantage3}。'},
-  {en:'The {product} is designed to {benefit} while {benefit2}.',jp:'{product}は{benefit}しながら{benefit2}するために設計されています。'},
-  {en:'We have successfully {action} {product} {location}.',jp:'当社は{location}で{product}を{action}することに成功しました。'},
-  {en:'This {product} is compatible with {compatibility} and requires {requirement}.',jp:'この{product}は{compatibility}と互換性があり、{requirement}は不要です。'},
-  {en:'Our customers have reported {improvement} in {metric}.',jp:'当社の顧客は{metric}で{improvement}を報告しています。'},
-  {en:'We believe {product} is an excellent fit for {location}.',jp:'{product}は{location}に最適だと確信しています。'},
-  {en:'Would you be interested in a trial of {product}?',jp:'{product}の試験にご関心がおありですか？'},
-  {en:'The implementation of {product} will {benefit}.',jp:'{product}の導入により{benefit}します。'}
+  {en:'Our latest {product} offers {number} key advantages: {advantage1}, {advantage2}, and {advantage3}.',jp:'当社の最新の{product}には3つの主な利点があります。{advantage1}、{advantage2}、そして{advantage3}です。'},
+  {en:'The {product} is designed to {benefit} while {benefit2}.',jp:'{product}は、{benefit2}を実現しながら{benefit}するように設計されています。'},
+  {en:'We have successfully {action} {product} {location}.',jp:'当社は{location}で{product}の{action}に成功しました。'},
+  {en:'This {product} is compatible with {compatibility} and requires {requirement}.',jp:'この{product}は{compatibility}と互換性があり、{requirement}です。'},
+  {en:'Our customers have reported {improvement} in {metric}.',jp:'お客様から{metric}において{improvement}のご報告をいただいています。'},
+  {en:'We believe {product} is an excellent fit for {location}.',jp:'{product}は{location}に最適なソリューションだと確信しています。'},
+  {en:'Would you be interested in a trial of {product}?',jp:'{product}の試験導入にご関心はありませんか？'},
+  {en:'The implementation of {product} will {benefit}.',jp:'{product}を導入することで、{benefit}が実現できます。'},
+  {en:'We provide comprehensive support for {product} implementation.',jp:'{product}の導入から運用まで、包括的なサポートを提供します。'},
+  {en:'Our research shows that {product} can {benefit}.',jp:'当社の研究によると、{product}は{benefit}することができます。'}
 ];
 
 const wordLists={
-  action:['improve','enhance','optimize','develop','implement','expand','strengthen','establish','launch','introduce'],
-  product:['seed treatment technology','crop protection system','irrigation solution','fertilizer formula','drone service','soil monitoring system','yield prediction software','pest management system','climate adaptation strategy','sustainability program'],
-  location:['the Japanese market','Asian markets','developing regions','the Southeast Asian region','domestic operations','overseas markets','emerging markets','key territories'],
-  Company:['Our company','Syngenta','We','The organization','Our team','The research division'],
-  benefit:['improve crop yields','enhance disease resistance','reduce environmental impact','increase efficiency','optimize seed vigor','reduce costs','strengthen sustainability','maximize profitability','ensure food security','promote sustainable agriculture'],
-  benefit2:['reducing environmental impact','minimizing costs','enhancing sustainability','improving outcomes','ensuring quality','maintaining compatibility'],
+  action:['improve','enhance','optimize','develop','implement','expand','strengthen','establish','launch','deploy'],
+  product:['seed treatment technology','crop protection system','irrigation solution','fertilizer formula','drone monitoring service','soil analysis system','yield prediction software','pest management technology','climate adaptation program','sustainability initiative'],
+  location:['the Japanese market','Asian markets','emerging regions','the Southeast Asian market','domestic farming operations','international markets','key agricultural regions','developing territories'],
+  Company:['Our organization','Syngenta','We','The research team','Our division','The technology group'],
+  benefit:['improve crop yields significantly','enhance disease resistance','reduce environmental impact','increase operational efficiency','maximize seed vigor','reduce production costs','strengthen sustainable farming','maximize profitability','ensure food security','advance sustainable agriculture'],
+  benefit2:['minimizing environmental impact','controlling costs effectively','maintaining sustainability','ensuring quality outcomes','protecting crops comprehensively','maintaining system compatibility'],
   number:['several','multiple','three','many','numerous'],
   advantage1:['improved germination rates','enhanced disease resistance','optimized seed vigor'],
-  advantage2:['reduced input requirements','lower cost of implementation','better environmental performance'],
-  advantage3:['increased profitability','improved yield consistency','stronger market competitiveness'],
-  compatibility:['existing equipment','standard farming procedures','current systems','conventional methods'],
-  requirement:['no modification','no additional investment','no specialized training','minimal technical support'],
-  improvement:['yield increases of up to 20%','cost reductions of 15-25%','improved germination rates','better disease resistance','enhanced sustainability metrics'],
-  metric:['field trials','regional assessments','market testing','agricultural research','performance evaluation']
+  advantage2:['significantly reduced input requirements','lower implementation costs','superior environmental performance'],
+  advantage3:['increased farm profitability','consistent yield improvement','enhanced market competitiveness'],
+  compatibility:['existing farm equipment','standard agricultural practices','conventional farming systems','traditional farming methods'],
+  requirement:['no system modifications needed','minimal additional investment required','no specialized training necessary','straightforward technical support'],
+  improvement:['yield increases of up to 20%','cost savings between 15-25%','significantly improved germination','notably enhanced disease resistance','measurable sustainability improvements'],
+  metric:['field testing','regional assessment','market evaluation','agricultural research','practical performance evaluation']
 };
 
 let currentMode='shadowing';
@@ -75,9 +77,14 @@ let isPlaying=false;
 let favorites=[];
 
 function init(){
+  loadVoices();
   favorites=JSON.parse(localStorage.getItem('favorites'))||[];
   updateFavoritesDisplay();
   generateSentence();
+}
+
+function loadVoices(){
+  window.speechSynthesis.onvoiceschanged=()=>{};
 }
 
 function getRandomItem(arr){
@@ -119,19 +126,54 @@ function setMode(m){
   }
 }
 
+function getVoice(){
+  if('speechSynthesis'in window){
+    const voices=window.speechSynthesis.getVoices();
+    let voice=voices.find(v=>v.lang.startsWith('en-US')&&v.name.includes('Google'));
+    if(!voice) voice=voices.find(v=>v.lang.startsWith('en-US'));
+    if(!voice) voice=voices.find(v=>v.lang.startsWith('en'));
+    return voice||null;
+  }
+  return null;
+}
+
 function playAudio(){
   if(!isPlaying&&'speechSynthesis'in window){
-    const u=new SpeechSynthesisUtterance(currentSentence.en);
-    u.rate=parseFloat(document.getElementById('speedInput').value);
-    u.lang='en-US';
-    isPlaying=true;
-    u.onend=()=>{isPlaying=false};
+    playSentence(currentSentence.en);
     if(currentMode==='listening'){
       document.getElementById('japaneseText').style.display='none';
     }
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(u);
   }
+}
+
+function playFavoriteSentence(text){
+  if('speechSynthesis'in window){
+    playAudio2(text);
+  }
+}
+
+function playSentence(text){
+  const u=new SpeechSynthesisUtterance(text);
+  u.rate=parseFloat(document.getElementById('speedInput').value);
+  u.lang='en-US';
+  u.pitch=1;
+  const voice=getVoice();
+  if(voice) u.voice=voice;
+  isPlaying=true;
+  u.onend=()=>{isPlaying=false};
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function playAudio2(text){
+  const u=new SpeechSynthesisUtterance(text);
+  u.rate=parseFloat(document.getElementById('speedInput').value);
+  u.lang='en-US';
+  u.pitch=1;
+  const voice=getVoice();
+  if(voice) u.voice=voice;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
 }
 
 function stopAudio(){
@@ -179,8 +221,11 @@ function updateFavoritesDisplay(){
   
   list.innerHTML=favorites.map((fav,idx)=>`
     <div class="favorite-item">
-      <div class="en">${fav.en}</div>
-      <div class="jp">${fav.jp}</div>
+      <button class="play-btn" onclick="playFavoriteSentence('${fav.en.replace(/'/g,"\\'")}')">▶️</button>
+      <div style="flex:1">
+        <div class="en">${fav.en}</div>
+        <div class="jp">${fav.jp}</div>
+      </div>
       <button class="favorite-btn" onclick="removeFavorite(${idx})">✕</button>
     </div>
   `).join('');
