@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Shadower</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#1e293b}.container{max-width:800px;margin:0 auto;padding:16px}.header{padding:16px;background:#f8fafc;border-bottom:1px solid #e2e8f0;margin-bottom:16px;border-radius:8px}.header h1{font-size:24px;margin-bottom:8px}.mode-selector{display:flex;gap:8px;margin-bottom:16px}button{padding:10px 16px;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer}.mode-btn{flex:1;background:#e2e8f0;color:#475569}.mode-btn.active{background:#0ea5e9;color:#fff}.theme-box{background:#f1f5f9;padding:16px;border-radius:8px;margin-bottom:16px}.theme-title{font-size:20px;font-weight:600;margin-bottom:4px}.theme-category{font-size:12px;opacity:.6;margin-bottom:12px}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.control-btn{background:#0ea5e9;color:#fff;padding:10px 12px;font-size:13px}.control-btn.secondary{background:#64748b}.content-box{background:#f8fafc;padding:16px;border-radius:8px;margin-bottom:16px;line-height:1.6}.content-label{font-size:12px;font-weight:600;opacity:.6;margin-bottom:8px}.theme-selector{margin-bottom:16px}.theme-selector label{display:block;font-size:12px;font-weight:600;margin-bottom:8px}select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:6px}.speed-control{display:flex;align-items:center;gap:8px}.speed-control input{width:60px;padding:6px;border:1px solid #cbd5e1;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header"><h1>🎙️ English Shadower</h1><p style="font-size:13px;opacity:.7">Learn English through shadowing & listening</p></div>
+<div class="mode-selector"><button class="mode-btn active" onclick="setMode('shadowing')">🎙️ Shadowing</button><button class="mode-btn" onclick="setMode('listening')">👂 Listening</button></div>
+<div class="theme-selector"><label>Select Theme:</label><select onchange="changeTheme(this.value)"><option value="0">Sales Meeting Opening</option><option value="1">Product Benefits</option><option value="2">Addressing Customer Concerns</option><option value="3">Technical Details</option><option value="4">Meeting Closing</option></select></div>
+<div class="theme-box" id="themeBox"><div class="theme-title" id="themeTitle">Sales Meeting Opening</div><div class="theme-category" id="themeCategory">Business</div></div>
+<div class="controls"><button class="control-btn" onclick="playAudio()">▶️ Play</button><button class="control-btn secondary" onclick="stopAudio()">⏹️ Stop</button><div class="speed-control"><label>Speed:</label><input type="number" id="speedInput" value="1" min="0.5" max="2" step="0.25"></div><button class="control-btn" onclick="toggleScript()">👁️ Script</button><button class="control-btn" onclick="toggleTranslation()">🇯🇵 JP</button></div>
+<div class="content-box" id="scriptBox" style="display:none"><div class="content-label">English</div><div class="content-text" id="englishText"></div></div>
+<div class="content-box" id="translationBox" style="display:none"><div class="content-label">日本語</div><div class="content-text" id="japaneseText"></div></div>
+</div>
+<script>
+const themes=[{title:'Sales Meeting Opening',category:'Business',english:'Good morning, thank you for taking the time to meet with us today. I\'d like to introduce our new seed treatment technology, Gepetto, which has been designed to significantly improve crop yields while reducing the environmental impact of agricultural production.',japanese:'おはようございます。本日はお時間をいただきありがとうございます。当社の新しい種子処理技術、ゲペットをご紹介したいと思います。これは農業生産の環境負荷を軽減しながら、作物の収量を大幅に向上させるために設計されています。'},{title:'Product Benefits',category:'Sales Pitch',english:'Gepetto offers several key advantages: improved germination rates, enhanced disease resistance, and optimized seed vigor. Our customers have reported yield increases of up to 20% in field trials.',japanese:'ゲペットは以下のような主な利点があります：発芽率の向上、病気への耐性向上、種子活力の最適化です。当社の顧客は試験圃場での収量増加を20%まで報告しています。'},{title:'Addressing Customer Concerns',category:'Customer Support',english:'I understand your concern about cost. While the initial investment is higher, the return on investment becomes apparent within the first season due to increased yields and reduced input requirements.',japanese:'コスト面でのご懸念はよく理解しています。初期投資は高いですが、収量の増加と投入量の削減により、最初のシーズンでは投資対効果が明らかになります。'},{title:'Technical Details',category:'Technical',english:'The active ingredients in Gepetto are derived from naturally occurring biological compounds. The formulation is compatible with existing application equipment and requires no modification to standard farming procedures.',japanese:'ゲペットの有効成分は自然発生的な生物化学物質から由来しています。処方は既存の施用機器と互換性があり、標準的な農業手順に変更は必要ありません。'},{title:'Meeting Closing',category:'Business',english:'Thank you for your attention and your thoughtful questions. We believe Gepetto is an excellent fit for your operation. Would you be interested in a small-scale trial on your property?',japanese:'ご清聴ありがとうございました。貴重なご質問をいただき感謝します。ゲペットはあなたの事業に最適だと確信しています。ご所有の土地での小規模試験にご関心がおありですか？'}];
+let currentThemeIndex=0,showScript=true,showTranslation=false,isPlaying=false;
+function changeTheme(i){currentThemeIndex=parseInt(i);updateDisplay()}
+function updateDisplay(){const t=themes[currentThemeIndex];document.getElementById('themeTitle').textContent=t.title;document.getElementById('themeCategory').textContent=t.category;document.getElementById('englishText').textContent=t.english;document.getElementById('japaneseText').textContent=t.japanese}
+function playAudio(){if(!isPlaying&&'speechSynthesis'in window){const t=themes[currentThemeIndex],u=new SpeechSynthesisUtterance(t.english);u.rate=parseFloat(document.getElementById('speedInput').value);u.lang='en-US';isPlaying=true;u.onend=()=>{isPlaying=false};window.speechSynthesis.cancel();window.speechSynthesis.speak(u)}}
+function stopAudio(){window.speechSynthesis.cancel();isPlaying=false}
+function toggleScript(){showScript=!showScript;document.getElementById('scriptBox').style.display=showScript?'block':'none'}
+function toggleTranslation(){showTranslation=!showTranslation;document.getElementById('translationBox').style.display=showTranslation?'block':'none'}
+updateDisplay();document.getElementById('scriptBox').style.display='block';
+</script>
+</body>
+</html>
