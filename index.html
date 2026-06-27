@@ -26,7 +26,7 @@
     <label>Speed:</label>
     <input type="number" id="speedInput" value="1" min="0.5" max="2" step="0.25">
   </div>
-  <button class="control-btn" id="jpBtn" onclick="toggleTranslation()">🇯🇵 Show JP</button>
+  <button class="control-btn" id="jpBtn" onclick="toggleTranslation()">🇯🇵 表示</button>
   <button class="control-btn heart" id="heartBtn" onclick="toggleFavorite()">🤍</button>
 </div>
 
@@ -38,48 +38,36 @@
 </div>
 
 <script>
-const shadowingTemplates=[
-  {en:'We are committed to {action} {product} {location}.',jp:'{location}での{product}の{action}に取り組んでいます。'},
-  {en:'{Company} has developed {product} to {benefit}.',jp:'{Company}は{benefit}するために{product}を開発しました。'},
-  {en:'Our latest {product} offers {number} key advantages: {advantage1}, {advantage2}, and {advantage3}.',jp:'当社の最新{product}には3つの主な利点があります：{advantage1}、{advantage2}、そして{advantage3}。'},
-  {en:'The {product} is designed to {benefit} while {benefit2}.',jp:'{product}は{benefit2}を実現しながら{benefit}できるよう設計されています。'},
-  {en:'We have successfully {action} {product} {location}.',jp:'当社は{location}で{product}の{action}に成功しました。'},
-  {en:'This {product} is compatible with {compatibility} and requires {requirement}.',jp:'このシステムは{compatibility}と互換性があり、{requirement}です。'},
-  {en:'Our customers have reported {improvement} in {metric}.',jp:'お客様から{metric}において{improvement}とのご報告をいただいています。'},
-  {en:'We believe {product} is an excellent fit for {location}.',jp:'{product}は{location}に最適なソリューションだと確信しています。'},
-  {en:'Would you be interested in a trial of {product}?',jp:'{product}のお試し導入にご関心はおありでしょうか。'},
-  {en:'The implementation of {product} will {benefit}.',jp:'{product}の導入により{benefit}を実現できます。'}
+const shadowingSentences=[
+  {en:'We are committed to expanding seed treatment technology across the Japanese market.',jp:'日本市場における種子処理技術の拡大に力を入れています。'},
+  {en:'Our company has developed crop protection systems to reduce environmental impact.',jp:'当社は環境への負荷を低減するための病害虫防除システムを開発しました。'},
+  {en:'Our latest irrigation solution offers three key advantages: water efficiency, cost savings, and improved sustainability.',jp:'当社の最新灌漑ソリューションには3つの主な利点があります：水の効率利用、コスト削減、および持続可能性の向上です。'},
+  {en:'The fertilizer formula is designed to improve crop yields while reducing environmental impact.',jp:'この肥料製品は環境への負荷を減らしながら作物収量を向上させるよう設計されています。'},
+  {en:'We have successfully implemented drone monitoring services across Asian markets.',jp:'当社はアジア各地でのドローン監視サービスの導入に成功しました。'},
+  {en:'This soil analysis system is compatible with existing farm equipment and requires no modification.',jp:'この土壌分析システムは既存の農機具と互換性があり、改修の必要がありません。'},
+  {en:'Our customers have reported yield increases of up to 20% in field trials.',jp:'お客様から圃場試験において収量が最大20%増加したとのご報告をいただいています。'},
+  {en:'We believe yield prediction software is an excellent fit for developing regions.',jp:'収量予測ソフトウェアは発展途上地域に最適なソリューションだと確信しています。'},
+  {en:'Would you be interested in a trial of our organic agriculture program?',jp:'当社の有機農業プログラムのお試し導入にご関心はおありでしょうか。'},
+  {en:'The implementation of climate adaptation strategy will maximize farm profitability.',jp:'気候変動対応戦略の導入により農家の利益を最大化できます。'},
+  {en:'We provide comprehensive support for implementing pest management technology.',jp:'病害虫管理技術の導入から運用まで、包括的なサポートを提供します。'},
+  {en:'Our research shows that sustainability initiatives can significantly reduce production costs.',jp:'当社の研究によると、持続可能性イニシアティブは生産コストを大幅に削減できます。'},
+  {en:'This technology is designed to enhance disease resistance while maintaining compatibility.',jp:'この技術は互換性を保ちながら病害虫耐性を強化するよう設計されています。'},
+  {en:'We have successfully established partnerships with leading agricultural organizations.',jp:'当社は主要な農業団体とのパートナーシップの確立に成功しました。'},
+  {en:'Our latest product offers improved germination rates and better environmental performance.',jp:'当社の最新製品は発芽率の向上と優れた環境性能を実現します。'}
 ];
 
-const listeningTemplates=[
-  {en:'We are committed to {action} {product} {location}. Our research team has spent the last three years developing this innovative solution to address the growing challenges faced by farmers in the region. We believe this represents a significant breakthrough in agricultural technology.',jp:'{location}での{product}の{action}に全力で取り組んでいます。当社の研究チームはこの地域の農家が直面する課題に対応するため、この革新的なソリューションの開発に3年間を費やしてきました。これは農業技術における大きな飛躍だと確信しています。'},
-  {en:'{Company} has developed {product} to {benefit}. After extensive field testing across multiple regions, we can confidently say that this solution delivers measurable results. Farmers using our technology have seen dramatic improvements in their operations.',jp:'{Company}は{benefit}するために{product}を開発しました。複数の地域で広範な圃場試験を実施した結果、このソリューションが測定可能な成果をもたらすことが実証されました。当社の技術を導入している農家は、経営成績の著しい改善を実感しています。'},
-  {en:'Our latest {product} offers {number} key advantages: {advantage1}, {advantage2}, and {advantage3}. Additionally, our customer support team is available 24/7 to assist with any questions or concerns. We stand behind every product we sell with a comprehensive warranty and technical support package.',jp:'当社の最新{product}には3つの主な利点があります：{advantage1}、{advantage2}、そして{advantage3}です。さらに、当社のカスタマーサポートチームは24時間体制でご質問やご不明な点についてサポートいたします。すべての製品に対して包括的な保証と技術サポートパッケージをご提供しています。'},
-  {en:'The {product} is designed to {benefit} while {benefit2}. This dual functionality makes it particularly attractive for farms looking to optimize their operations without significant additional investment. The system integrates seamlessly with existing farm management software and equipment.',jp:'{product}は{benefit2}を実現しながら{benefit}できるよう設計されています。この二重機能により、大きな追加投資なしに経営を最適化したい農場にとって特に魅力的です。このシステムは既存の農場管理ソフトウェアや機器とシームレスに統合されます。'},
-  {en:'We have successfully {action} {product} {location}. The response from local farmers has been overwhelmingly positive, with many expressing their intention to expand the program to neighboring areas. Government agencies have also shown strong interest in supporting wider adoption.',jp:'当社は{location}で{product}の{action}に成功しました。地元の農家からの反応は非常に好意的で、多くの農家が隣接地域へのプログラム拡大を希望しています。政府機関もより広い導入をサポートすることに強い関心を示しています。'},
-  {en:'This {product} is compatible with {compatibility} and requires {requirement}. Installation typically takes only one or two days, and our technical team will handle all the setup and configuration. Once installed, the system runs automatically with minimal human intervention required.',jp:'このシステムは{compatibility}と互換性があり、{requirement}です。通常、インストールには1～2日を要し、当社の技術チームがすべてのセットアップと設定を実施いたします。インストール後はシステムが自動的に稼働し、人的介入はほとんど必要ありません。'},
-  {en:'Our customers have reported {improvement} in {metric}. These results have been validated by independent agricultural research institutions, lending credibility to our claims. We are proud to share these findings with stakeholders interested in evidence-based decision making.',jp:'お客様から{metric}において{improvement}とのご報告をいただいています。これらの結果は独立した農業研究機関によって検証されており、当社の主張の信頼性が認められています。当社は、根拠に基づいた意思決定に関心をお持ちの関係者とこれらの知見を共有することを誇りとしています。'},
-  {en:'We believe {product} is an excellent fit for {location}. Our team has carefully analyzed the specific conditions, climate patterns, and farming practices unique to this region. We are confident that our tailored approach will deliver exceptional results for your operations.',jp:'{product}は{location}に最適なソリューションだと確信しています。当社チームはこの地域に固有の条件、気候パターン、および農業慣行を詳細に分析しました。当社のカスタマイズされたアプローチがお客様の経営に優れた成果をもたらすと確信しています。'},
-  {en:'Would you be interested in a trial of {product}? We offer flexible trial periods ranging from one month to six months, allowing you to evaluate the system in your own environment. There is no obligation to purchase, and you can cancel at any time.',jp:'{product}のお試し導入にご関心はおありでしょうか。1ヶ月から6ヶ月までの柔軟なお試し期間をご用意しており、ご自身の環境でシステムを評価していただけます。購入の義務はなく、いつでも中止できます。'},
-  {en:'The implementation of {product} will {benefit}. To ensure success, we provide comprehensive training for your staff, ongoing technical support, and regular follow-up assessments. Our goal is not just to install a system, but to build a long-term partnership with our clients.',jp:'{product}の導入により{benefit}を実現できます。成功を確保するため、スタッフへの包括的な研修、継続的な技術サポート、および定期的なフォローアップ評価を提供いたします。当社の目標は単にシステムを導入することではなく、クライアントとの長期的なパートナーシップを構築することです。'}
+const listeningSentences=[
+  {en:'We are committed to expanding seed treatment technology across the Japanese market. Our research team has spent the last three years developing this innovative solution to address the growing challenges faced by farmers in the region. We believe this represents a significant breakthrough in agricultural technology that will benefit farming communities for years to come.',jp:'日本市場における種子処理技術の拡大に力を入れています。当社の研究チームはこの地域の農家が直面する課題に対応するため、この革新的なソリューションの開発に3年間を費やしてきました。これは農業技術における大きな飛躍であり、今後長年にわたり農業コミュニティに利益をもたらすと確信しています。'},
+  {en:'Our company has developed crop protection systems to reduce environmental impact. After extensive field testing across multiple regions, we can confidently say that this solution delivers measurable results. Farmers using our technology have seen dramatic improvements in their operations and reported higher satisfaction levels.',jp:'当社は環境への負荷を低減するための病害虫防除システムを開発しました。複数の地域で広範な圃場試験を実施した結果、このソリューションが測定可能な成果をもたらすことが実証されました。当社の技術を導入している農家は経営成績の著しい改善を実感し、高い満足度を報告しています。'},
+  {en:'Our latest irrigation solution offers three key advantages: water efficiency, cost savings, and improved sustainability. Additionally, our customer support team is available 24/7 to assist with any questions or concerns. We stand behind every product we sell with a comprehensive warranty and technical support package.',jp:'当社の最新灌漑ソリューションには3つの主な利点があります：水の効率利用、コスト削減、および持続可能性の向上です。さらに、当社のカスタマーサポートチームは24時間体制でご質問やご不明な点についてサポートいたします。すべての製品に対して包括的な保証と技術サポートパッケージをご提供しています。'},
+  {en:'The fertilizer formula is designed to improve crop yields while reducing environmental impact. This dual functionality makes it particularly attractive for farms looking to optimize their operations without significant additional investment. The system integrates seamlessly with existing farm management software and equipment.',jp:'この肥料製品は環境への負荷を減らしながら作物収量を向上させるよう設計されています。この二重機能により、大きな追加投資なしに経営を最適化したい農場にとって特に魅力的です。このシステムは既存の農場管理ソフトウェアや機器とシームレスに統合されます。'},
+  {en:'We have successfully implemented drone monitoring services across Asian markets. The response from local farmers has been overwhelmingly positive, with many expressing their intention to expand the program to neighboring areas. Government agencies have also shown strong interest in supporting wider adoption of this innovative technology.',jp:'当社はアジア各地でのドローン監視サービスの導入に成功しました。地元の農家からの反応は非常に好意的で、多くの農家が隣接地域へのプログラム拡大を希望しています。政府機関もこの革新的な技術のより広い導入をサポートすることに強い関心を示しています。'},
+  {en:'This soil analysis system is compatible with existing farm equipment and requires no modification. Installation typically takes only one or two days, and our technical team will handle all the setup and configuration. Once installed, the system runs automatically with minimal human intervention required.',jp:'この土壌分析システムは既存の農機具と互換性があり、改修の必要がありません。通常、インストールには1～2日を要し、当社の技術チームがすべてのセットアップと設定を実施いたします。インストール後はシステムが自動的に稼働し、人的介入はほとんど必要ありません。'},
+  {en:'Our customers have reported yield increases of up to 20% in field trials. These results have been validated by independent agricultural research institutions, lending credibility to our claims. We are proud to share these findings with stakeholders interested in evidence-based decision making.',jp:'お客様から圃場試験において収量が最大20%増加したとのご報告をいただいています。これらの結果は独立した農業研究機関によって検証されており、当社の主張の信頼性が認められています。当社は、根拠に基づいた意思決定に関心をお持ちの関係者とこれらの知見を共有することを誇りとしています。'},
+  {en:'We believe yield prediction software is an excellent fit for developing regions. Our team has carefully analyzed the specific conditions, climate patterns, and farming practices unique to each region. We are confident that our tailored approach will deliver exceptional results for your agricultural operations.',jp:'収量予測ソフトウェアは発展途上地域に最適なソリューションだと確信しています。当社チームは各地域に固有の条件、気候パターン、および農業慣行を詳細に分析しました。当社のカスタマイズされたアプローチがお客様の農業経営に優れた成果をもたらすと確信しています。'},
+  {en:'Would you be interested in a trial of our organic agriculture program? We offer flexible trial periods ranging from one month to six months, allowing you to evaluate the system in your own environment. There is no obligation to purchase, and you can cancel at any time without penalty.',jp:'当社の有機農業プログラムのお試し導入にご関心はおありでしょうか。1ヶ月から6ヶ月までの柔軟なお試し期間をご用意しており、ご自身の環境でシステムを評価していただけます。購入の義務はなく、いつでも中止できます。'},
+  {en:'The implementation of climate adaptation strategy will maximize farm profitability. To ensure success, we provide comprehensive training for your staff, ongoing technical support, and regular follow-up assessments. Our goal is not just to implement a system, but to build a long-term partnership with our clients.',jp:'気候変動対応戦略の導入により農家の利益を最大化できます。成功を確保するため、スタッフへの包括的な研修、継続的な技術サポート、および定期的なフォローアップ評価を提供いたします。当社の目標は単にシステムを導入することではなく、クライアントとの長期的なパートナーシップを構築することです。'}
 ];
-
-const wordLists={
-  action:['拡大する','強化する','最適化する','導入する','推進する','確立する','展開する','構築する'],
-  product:['種子処理技術','病害虫防除システム','灌漑ソリューション','肥料製品','ドローン監視サービス','土壌分析システム','収量予測ソフトウェア','有機農業プログラム','気候変動対応戦略','持続可能性イニシアティブ'],
-  location:['日本市場','アジア各地','発展途上地域','東南アジア地域','国内農業','国際市場','主要農業地域','新興市場'],
-  Company:['当社','シンジェンタ','わが社','研究チーム','技術部門','開発グループ'],
-  benefit:['作物収量を大幅に向上させる','病害虫抵抗性を高める','環境への負荷を低減する','運用効率を向上させる','種子活力を最適化する','生産コストを削減する','農業の持続性を強化する','農家の利益を最大化する','食料安全保障を確保する','農業の環境負荷を減らす'],
-  benefit2:['環境への負荷を最小限に抑える','コスト管理を実現する','持続可能性を維持する','品質成果を確保する','作物を包括的に保護する','システム互換性を保つ'],
-  number:['複数の','いくつかの','3つの','多くの','様々な'],
-  advantage1:['発芽率の大幅な向上','病害虫への耐性強化','種子活力の最適化'],
-  advantage2:['必要な資材の大幅削減','導入コストの低さ','優れた環境性能'],
-  advantage3:['農場の採算性向上','安定した増収','市場競争力の強化'],
-  compatibility:['既存の農機具','標準的な農業慣行','従来型システム','一般的な農業方法'],
-  requirement:['改修の必要がない','追加投資がほぼ不要','特別な訓練が不要','最小限の技術サポート'],
-  improvement:['収量が最大20%増加','コスト削減15～25%','発芽率の著しい向上','病害虫耐性の顕著な向上','環境指標の改善'],
-  metric:['圃場試験','地域評価','市場検証','農業研究','実地性能評価']
-};
 
 let currentMode='shadowing';
 let currentSentence={en:'',jp:''};
@@ -95,7 +83,9 @@ function init(){
 }
 
 function loadVoices(){
-  window.speechSynthesis.onvoiceschanged=()=>{};
+  if('speechSynthesis'in window){
+    window.speechSynthesis.onvoiceschanged=()=>{};
+  }
 }
 
 function getRandomItem(arr){
@@ -103,20 +93,12 @@ function getRandomItem(arr){
 }
 
 function generateSentence(){
-  const templates=currentMode==='shadowing'?shadowingTemplates:listeningTemplates;
-  const template=getRandomItem(templates);
-  let en=template.en;
-  let jp=template.jp;
+  const sentences=currentMode==='shadowing'?shadowingSentences:listeningSentences;
+  const sentence=getRandomItem(sentences);
   
-  for(const[key,list]of Object.entries(wordLists)){
-    const word=getRandomItem(list);
-    en=en.replace(new RegExp(`\\{${key}\\}`,'g'),word);
-    jp=jp.replace(new RegExp(`\\{${key}\\}`,'g'),word);
-  }
-  
-  currentSentence={en,jp};
-  document.getElementById('englishText').textContent=en;
-  document.getElementById('japaneseText').textContent=jp;
+  currentSentence={en:sentence.en,jp:sentence.jp};
+  document.getElementById('englishText').textContent=sentence.en;
+  document.getElementById('japaneseText').textContent=sentence.jp;
   
   updateHeartButton();
   showTranslation=false;
@@ -142,10 +124,24 @@ function setMode(m){
 function getVoice(){
   if('speechSynthesis'in window){
     const voices=window.speechSynthesis.getVoices();
-    let voice=voices.find(v=>v.lang.startsWith('en-US')&&v.name.includes('Google'));
-    if(!voice) voice=voices.find(v=>v.lang.startsWith('en-US'));
-    if(!voice) voice=voices.find(v=>v.lang.startsWith('en'));
-    return voice||null;
+    
+    // 優先度1: Google Wavenet voices（最も自然）
+    let voice=voices.find(v=>v.name.includes('Wavenet'));
+    if(voice) return voice;
+    
+    // 優先度2: Google音声
+    voice=voices.find(v=>v.name.includes('Google')&&v.lang.startsWith('en-US'));
+    if(voice) return voice;
+    
+    // 優先度3: 英語（US）
+    voice=voices.find(v=>v.lang.startsWith('en-US'));
+    if(voice) return voice;
+    
+    // 優先度4: 英語（任意）
+    voice=voices.find(v=>v.lang.startsWith('en'));
+    if(voice) return voice;
+    
+    return null;
   }
   return null;
 }
@@ -161,30 +157,24 @@ function playAudio(){
 
 function playFavoriteSentence(text){
   if('speechSynthesis'in window){
-    playAudio2(text);
+    playSentence(text);
   }
 }
 
 function playSentence(text){
   const u=new SpeechSynthesisUtterance(text);
-  u.rate=parseFloat(document.getElementById('speedInput').value);
+  u.rate=parseFloat(document.getElementById('speedInput').value)||1;
   u.lang='en-US';
   u.pitch=1;
+  u.volume=1;
+  
   const voice=getVoice();
   if(voice) u.voice=voice;
+  
   isPlaying=true;
   u.onend=()=>{isPlaying=false};
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(u);
-}
-
-function playAudio2(text){
-  const u=new SpeechSynthesisUtterance(text);
-  u.rate=parseFloat(document.getElementById('speedInput').value);
-  u.lang='en-US';
-  u.pitch=1;
-  const voice=getVoice();
-  if(voice) u.voice=voice;
+  u.onerror=()=>{isPlaying=false};
+  
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(u);
 }
